@@ -7,10 +7,16 @@ import moment from "moment";
 
 export default function Home() {
 
-  const fetcher:Fetcher = (...args) => fetch(...args,{headers: {
-    'X-RapidAPI-Key': '89c522e5b7msh0f9361c02303a67p1600e5jsncf9d95d3856d',
-    'X-RapidAPI-Host': 'remote-jobs-api.p.rapidapi.com'
-  }}).then(res => res.json())
+  const fetcher =  (
+    input: RequestInfo,
+    init?: RequestInit
+  ):any => {
+    fetch(input, init={headers: {
+      'X-RapidAPI-Key': '89c522e5b7msh0f9361c02303a67p1600e5jsncf9d95d3856d',
+      'X-RapidAPI-Host': 'remote-jobs-api.p.rapidapi.com'
+    }}).then(res => res.json())
+    
+  }
   const { data:latestJob, error:latestJobError, isLoading:latestJobLoading } = useSWR('https://remote-jobs-api.p.rapidapi.com/jobs', fetcher)
 if(latestJobLoading){
   return(
